@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#include"algorythms.h"
 
 #define _POSIX_TIMERS
 #define _REENANT
@@ -12,16 +13,7 @@ int getMode(int *array, int size){
     int mode = array[0];
     int current_count;
 
-    printf("ordering...\n");
-    for(int i = 0; i < size; i++){
-        for(int j = i + 1; j < size; ++j){
-            if(array[i] > array[j]){
-                int temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
-            }
-        }
-    }
+    
 
     for(int i = 0; i < size; ){
         current_count = 1;
@@ -38,7 +30,8 @@ int getMode(int *array, int size){
             mode = array[i];
         }
         i+=current_count;
-    } 
+    }
+    printf("cantidad de repeticiones: %d/n",max_count);
     return mode;
 }
 
@@ -80,9 +73,14 @@ int main(int argc, char* argv[]){
     clock_gettime(CLOCK_REALTIME, &end);
     
     elapsed_sum = (end.tv_sec - start.tv_sec) + ((end.tv_nsec - start.tv_nsec)/1e9);
-    
-    printf("before mode function");
-    printf("moda: %d", getMode(array, size));
+   
+    quicksort (array, 0, size-1);
+
+    for(int i = 0; i < size; i++){
+	printf("%d\n", array[i]);
+    }
+    //printf("before mode function");
+    printf("moda: %d/n", getMode(array, size));
     printf("Sum = %ld\n", sum);
     printf("Sum time: %lf seg\n", elapsed_sum);
     printf("Read time: %lf seg\n", elapsed_read);
