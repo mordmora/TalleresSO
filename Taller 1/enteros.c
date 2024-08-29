@@ -31,7 +31,7 @@ int getMode(int *array, int size){
         }
         i+=current_count;
     }
-    printf("cantidad de repeticiones: %d/n",max_count);
+    printf("cantidad de repeticiones: %d\n",max_count);
     return mode;
 }
 
@@ -76,11 +76,11 @@ int main(int argc, char* argv[]){
    
     quicksort (array, 0, size-1);
 
-    for(int i = 0; i < size; i++){
-	printf("%d\n", array[i]);
-    }
+//    for(int i = 0; i < size; i++){
+//	printf("%d\n", array[i]);
+//    }
     //printf("before mode function");
-    printf("moda: %d/n", getMode(array, size));
+    printf("moda: %d\n", getMode(array, size));
     printf("Sum = %ld\n", sum);
     printf("Sum time: %lf seg\n", elapsed_sum);
     printf("Read time: %lf seg\n", elapsed_read);
