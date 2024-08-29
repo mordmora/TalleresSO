@@ -37,7 +37,7 @@ void getMaxFreq(int* array, int size){
 
   printf("most common value = %d\n", most_freq_e);
   printf("frequency = %d\n", freq);
-  printf("frequency estimation = %f\n seg", time_elapsed);
+  printf("frequency estimation = %f seg\n", time_elapsed);
 }
 
 int main(int argc, char* argv[]){
@@ -74,9 +74,9 @@ int main(int argc, char* argv[]){
     }
 
     clock_gettime(CLOCK_REALTIME, &end);
-    getMaxFreq(array, size); 
+ 
     elapsed_sum = (end.tv_sec - start.tv_sec) + ((end.tv_nsec - start.tv_nsec)/1e9);
-   
+    getMaxFreq(array, size);   
     printf("Sum = %ld\n", sum);
     printf("Sum time: %lf seg\n", elapsed_sum);
     printf("Read time: %lf seg\n", elapsed_read);
