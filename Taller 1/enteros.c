@@ -38,6 +38,7 @@ void getMaxFreq(int* array, int size){
   printf("most common value = %d\n", most_freq_e);
   printf("frequency = %d\n", freq);
   printf("frequency estimation = %f seg\n", time_elapsed);
+  free(hashT);
 }
 
 int main(int argc, char* argv[]){
@@ -48,7 +49,6 @@ int main(int argc, char* argv[]){
     long int sum = 0;
     double elapsed_read, elapsed_sum;
 
-    f = fopen(argv[1], "r");
 
     if(f == NULL){
         printf("Archivo no encontrado\n");
@@ -80,5 +80,8 @@ int main(int argc, char* argv[]){
     printf("Sum = %ld\n", sum);
     printf("Sum time: %lf seg\n", elapsed_sum);
     printf("Read time: %lf seg\n", elapsed_read);
+
+    free(array);
+    fclose(f);
     return 0;
 }
