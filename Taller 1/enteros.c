@@ -1,40 +1,44 @@
+#include <bits/time.h>
 #include<stdio.h>
 #include<stdlib.h>
+#include <string.h>
 #include<time.h>
-#include"algorythms.h"
+//#include"algorythms.h"
 
 #define _POSIX_TIMERS
 #define _REENANT
-
+#define MAX_HASHT_SIZE 10000
 struct timespec start, end;
 
-int getMode(int *array, int size){
-    int max_count = 0;
-    int mode = array[0];
-    int current_count;
 
-    
+void getMaxFreq(int* array, int size){
 
-    for(int i = 0; i < size; ){
-        current_count = 1;
-        for(int j = i + 1; j < size; j++){
-            if(array[i] == array[j]){
-                current_count++;
-            } else {
-                break;
-            }
-        }
+  int* hashT = (int*)malloc(sizeof(int)*MAX_HASHT_SIZE);
+  memset(hashT, 0, sizeof(int) * MAX_HASHT_SIZE);
+  int most_freq_e = array[0];
+  int freq = 0;
+  double time_elapsed = 0;
 
-        if(current_count > max_count){
-            max_count = current_count;
-            mode = array[i];
-        }
-        i+=current_count;
+
+  clock_gettime(CLOCK_REALTIME, &start);
+
+  for(int i = 0; i < size; i++){
+    hashT[array[i]]++;
+    if(hashT[array[i]] > freq){
+      freq = hashT[array[i]];
+      most_freq_e = array[i];
     }
-    printf("cantidad de repeticiones: %d\n",max_count);
-    return mode;
-}
+  }
 
+  clock_gettime(CLOCK_REALTIME, &end);
+
+
+  time_elapsed = (end.tv_sec - start.tv_sec) + ((end.tv_nsec - start.tv_nsec)/1e9);
+
+  printf("most common value = %d\n", most_freq_e);
+  printf("frequency = %d\n", freq);
+  printf("frequency estimation = %f\n seg", time_elapsed);
+}
 
 int main(int argc, char* argv[]){
     FILE* f;
@@ -61,7 +65,6 @@ int main(int argc, char* argv[]){
     }
 
     clock_gettime(CLOCK_REALTIME, &end);
-
     elapsed_read = (end.tv_sec - start.tv_sec) + ((end.tv_nsec - start.tv_nsec)/1e9);
 
     clock_gettime(CLOCK_REALTIME, &start); //tiempo de suma
@@ -71,16 +74,9 @@ int main(int argc, char* argv[]){
     }
 
     clock_gettime(CLOCK_REALTIME, &end);
-    
+    getMaxFreq(array, size); 
     elapsed_sum = (end.tv_sec - start.tv_sec) + ((end.tv_nsec - start.tv_nsec)/1e9);
    
-    quicksort (array, 0, size-1);
-
-//    for(int i = 0; i < size; i++){
-//	printf("%d\n", array[i]);
-//    }
-    //printf("before mode function");
-    printf("moda: %d\n", getMode(array, size));
     printf("Sum = %ld\n", sum);
     printf("Sum time: %lf seg\n", elapsed_sum);
     printf("Read time: %lf seg\n", elapsed_read);
